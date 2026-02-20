@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EventBuddy – Teilnehmer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles/participants/participants.css" />
+</head>
+<body data-page="participants">
+  <main class="eb">
+    <header class="eb__header">
+      <div class="eb__brand">
+        <div class="eb__logo">EB</div>
+        <div>
+          <p class="eb__title">EventBuddy</p>
+          <div class="eb__helper">Events planen, Teilnehmer verwalten, Tags filtern.</div>
+        </div>
+      </div>
+      <nav class="eb__nav">
+        <a class="eb__nav-pill" href="events.html" data-page="events">Events</a>
+        <a class="eb__nav-pill" href="participants.html" data-page="participants">Teilnehmer</a>
+        <a class="eb__nav-pill" href="invitations.html" data-page="invitations">Einladungen</a>
+        <a class="eb__nav-pill" href="profile.html" data-page="profile">Profil</a>
+        <a class="eb__nav-pill" href="index.html">Logout</a>
+      </nav>
+    </header>
+
+    <section class="eb__page eb__page--active" data-page="participants">
+      <div class="eb__panel">
+        <div class="eb__header">
+          <div>
+            <p class="eb__detail-title">TeilnehmerInnen</p>
+            <div class="eb__helper">Verwaltung der Personen im System.</div>
+          </div>
+          <button class="eb__btn eb__btn--ghost" type="button" data-action="add-participant">+ Teilnehmer hinzufuegen</button>
+        </div>
+        <div class="eb__filters" style="grid-template-columns: 2fr 1fr;">
+          <div class="eb__field">
+            <label for="participant-search">Suche</label>
+            <input id="participant-search" type="search" placeholder="Name oder E-Mail" />
+          </div>
+          <div class="eb__field">
+            <label>Aktion</label>
+            <button class="eb__btn" type="button" data-action="export-participants">Liste exportieren</button>
+          </div>
+        </div>
+        <div class="eb__table" data-participant-list></div>
+      </div>
+    </section>
+
+    <template id="participant-row-template">
+      <div class="eb__table-row">
+        <span data-field="initials"></span>
+        <span data-field="name"></span>
+        <span data-field="email"></span>
+        <span class="eb__actions">
+          <button class="eb__btn eb__btn--ghost" type="button" data-action="edit-participant">Bearbeiten</button>
+          <button class="eb__btn eb__btn--ghost" type="button" data-action="delete-participant">Loeschen</button>
+        </span>
+      </div>
+    </template>
+
+    <div class="eb__modal" data-participant-modal hidden>
+      <div class="eb__modal-backdrop" data-action="close-participant-modal"></div>
+      <div class="eb__modal-card" role="dialog" aria-modal="true" aria-labelledby="participant-modal-title">
+        <div class="eb__modal-header">
+          <p class="eb__detail-title" id="participant-modal-title" data-modal-title>Teilnehmer anlegen</p>
+          <button class="eb__modal-close" type="button" data-action="close-participant-modal">×</button>
+        </div>
+        <form class="eb__modal-body" data-participant-form novalidate>
+          <div class="eb__field">
+            <label for="participant-name">Name</label>
+            <input id="participant-name" name="name" required />
+          </div>
+          <div class="eb__field">
+            <label for="participant-email">E-Mail</label>
+            <input id="participant-email" name="email" type="email" required />
+          </div>
+          <div class="eb__field">
+            <label for="participant-initials">Kuerzel</label>
+            <input id="participant-initials" name="initials" required />
+          </div>
+          <div class="eb__actions">
+            <button class="eb__btn" type="submit" data-modal-submit>Speichern</button>
+            <button class="eb__btn eb__btn--ghost" type="button" data-action="close-participant-modal">Abbrechen</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script src="../js/model.js"></script>
+  <script src="../js/controller.js"></script>
+  <script src="../js/views/shared.js"></script>
+  <script src="../js/views/eventsView.js"></script>
+  <script src="../js/views/participantsView.js"></script>
+  <script src="../js/views/invitationsView.js"></script>
+  <script src="../js/views/profileView.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
+
+
+
