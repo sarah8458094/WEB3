@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EventBuddy – Profil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles/profile/profile.css" />
+</head>
+<body data-page="profile">
+  <main class="eb">
+    <header class="eb__header">
+      <div class="eb__brand">
+        <div class="eb__logo">EB</div>
+        <div>
+          <p class="eb__title">EventBuddy</p>
+          <div class="eb__helper">Events planen, Teilnehmer verwalten, Tags filtern.</div>
+        </div>
+      </div>
+      <nav class="eb__nav">
+        <a class="eb__nav-pill" href="events.html" data-page="events">Events</a>
+        <a class="eb__nav-pill" href="participants.html" data-page="participants">Teilnehmer</a>
+        <a class="eb__nav-pill" href="invitations.html" data-page="invitations">Einladungen</a>
+        <a class="eb__nav-pill" href="profile.html" data-page="profile">Profil</a>
+        <a class="eb__nav-pill" href="index.html">Logout</a>
+      </nav>
+    </header>
+
+    <section class="eb__page eb__page--active" data-page="profile">
+      <div class="eb__panel eb__profile">
+        <div class="eb__header">
+          <div>
+            <p class="eb__detail-title">Mein Profil</p>
+            <div class="eb__helper">Profilinformationen fuer die Demo.</div>
+          </div>
+        </div>
+        <form class="eb__profile-form" data-form="profile">
+          <div class="eb__field">
+            <label for="profile-name">Name</label>
+            <input id="profile-name" name="profile-name" />
+          </div>
+          <div class="eb__field">
+            <label for="profile-email">E-Mail</label>
+            <input id="profile-email" name="profile-email" />
+          </div>
+          <div class="eb__field">
+            <label for="profile-initials">Kuerzel</label>
+            <input id="profile-initials" name="profile-initials" />
+          </div>
+          <div class="eb__actions">
+            <button class="eb__btn" type="button" data-action="save-profile">Speichern</button>
+            <button class="eb__btn eb__btn--ghost" type="button" data-action="reset-profile">Abbrechen</button>
+          </div>
+          <div class="eb__section-title">Passwort</div>
+          <div class="eb__field">
+            <label for="profile-password">Neues Passwort</label>
+            <input id="profile-password" type="password" placeholder="******" />
+          </div>
+          <div class="eb__actions">
+            <button class="eb__btn" type="button" data-action="change-password">Passwort aendern</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="../js/model.js"></script>
+  <script src="../js/controller.js"></script>
+  <script src="../js/views/shared.js"></script>
+  <script src="../js/views/eventsView.js"></script>
+  <script src="../js/views/participantsView.js"></script>
+  <script src="../js/views/invitationsView.js"></script>
+  <script src="../js/views/profileView.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
+
+
+
