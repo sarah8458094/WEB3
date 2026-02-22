@@ -6,8 +6,12 @@ function initInvitationsView(model, controller) {
   // DOM: Liste + Popup
   const list = document.querySelector("[data-invite-list]");
   const modal = document.querySelector("[data-invite-modal]");
-  const modalTitle = document.querySelector("[data-modal-title]");
-  const modalDetails = document.querySelector("[data-modal-details]");
+  const modalTitle =
+    document.querySelector("[data-invite-modal-title]") ||
+    document.querySelector("[data-invite-modal] [data-modal-title]");
+  const modalDetails =
+    document.querySelector("[data-invite-modal-details]") ||
+    document.querySelector("[data-invite-modal] [data-modal-details]");
 
   // Zustand: Daten + User
   const state = {
@@ -278,12 +282,14 @@ function initInvitationsView(model, controller) {
     });
 
     modal.hidden = false;
+    modal.classList.add("is-open");
   }
 
   function closeInviteModal() {
     if (!modal) {
       return;
     }
+    modal.classList.remove("is-open");
     modal.hidden = true;
   }
 

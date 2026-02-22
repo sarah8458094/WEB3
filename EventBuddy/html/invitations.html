@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EventBuddy – Einladungen</title>
+  <title>EventBuddy - Einladungen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -24,7 +24,6 @@
         <a class="eb__nav-pill" href="participants.html" data-page="participants">Teilnehmer</a>
         <a class="eb__nav-pill" href="invitations.html" data-page="invitations">Einladungen</a>
         <a class="eb__nav-pill" href="profile.html" data-page="profile">Profil</a>
-        <a class="eb__nav-pill" href="index.html">Logout</a>
       </nav>
     </header>
 
@@ -60,10 +59,10 @@
     <div class="eb__modal" data-invite-modal hidden>
       <div class="eb__modal-card" role="dialog" aria-modal="true" aria-labelledby="invite-modal-title">
         <div class="eb__header" style="margin-bottom:8px;">
-          <p class="eb__detail-title" id="invite-modal-title" data-modal-title>Event</p>
+          <p class="eb__detail-title" id="invite-modal-title" data-modal-title data-invite-modal-title>Event</p>
           <button class="eb__btn eb__btn--ghost" type="button" data-action="close-invite-modal">Schliessen</button>
         </div>
-        <div class="eb__modal-details" data-modal-details></div>
+        <div class="eb__modal-details" data-modal-details data-invite-modal-details></div>
       </div>
     </div>
 
@@ -78,10 +77,3 @@
   <script src="../js/main.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-

@@ -1,6 +1,7 @@
 class EventModel extends EventTarget {
   constructor() {
     super();
+    this.storageKey = "eventbuddy:data";
     this.events = [];
     this.tags = [];
     this.participants = [];
@@ -8,7 +9,7 @@ class EventModel extends EventTarget {
   }
 
   async load() {
-    const data = this.#fallbackData();
+    const data = this.#readStoredData() || this.#fallbackData();
 
     this.events = data.events ?? [];
     this.tags = data.tags ?? [];
@@ -40,6 +41,7 @@ class EventModel extends EventTarget {
     };
 
     this.events = [...this.events, event];
+    this.#persist();
     this.#emit("events:changed");
   }
 
@@ -59,12 +61,14 @@ class EventModel extends EventTarget {
           }
         : event
     );
+    this.#persist();
     this.#emit("events:changed");
   }
 
   deleteEvent(id) {
     this.events = this.events.filter((event) => event.id !== id);
     delete this.invitationStatus[id];
+    this.#persist();
     this.#emit("events:changed");
   }
 
@@ -78,6 +82,7 @@ class EventModel extends EventTarget {
     }
 
     this.tags = [...this.tags, { id: this.#id("t"), label: clean }];
+    this.#persist();
     this.#emit("tags:changed");
   }
 
@@ -93,6 +98,7 @@ class EventModel extends EventTarget {
     this.tags = this.tags.map((tag) =>
       tag.id === id ? { ...tag, label: clean } : tag
     );
+    this.#persist();
     this.#emit("tags:changed");
   }
 
@@ -103,6 +109,7 @@ class EventModel extends EventTarget {
     }
 
     this.tags = this.tags.filter((tag) => tag.id !== id);
+    this.#persist();
     this.#emit("tags:changed");
   }
 
@@ -118,6 +125,7 @@ class EventModel extends EventTarget {
       initials: payload.initials.trim()
     };
     this.participants = [...this.participants, participant];
+    this.#persist();
     this.#emit("participants:changed");
   }
 
@@ -136,6 +144,7 @@ class EventModel extends EventTarget {
           }
         : participant
     );
+    this.#persist();
     this.#emit("participants:changed");
   }
 
@@ -150,6 +159,7 @@ class EventModel extends EventTarget {
         delete this.invitationStatus[eventId][id];
       }
     });
+    this.#persist();
     this.#emit("participants:changed");
     this.#emit("events:changed");
   }
@@ -172,6 +182,7 @@ class EventModel extends EventTarget {
       this.invitationStatus[eventId] = {};
     }
     this.invitationStatus[eventId][participantId] = status;
+    this.#persist();
     this.#emit("invitations:changed");
   }
 
@@ -210,6 +221,30 @@ class EventModel extends EventTarget {
 
   #id(prefix) {
     return `${prefix}${Date.now()}${Math.floor(Math.random() * 1000)}`;
+  }
+
+  #persist() {
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.getState()));
+    } catch (_error) {
+      // ignore storage errors (private mode/quota)
+    }
+  }
+
+  #readStoredData() {
+    try {
+      const raw = localStorage.getItem(this.storageKey);
+      if (!raw) {
+        return null;
+      }
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object") {
+        return null;
+      }
+      return parsed;
+    } catch (_error) {
+      return null;
+    }
   }
 
   #fallbackData() {
